@@ -1,0 +1,949 @@
+<!--This page is about 'Religious Diversity'-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Places of Worship in London</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
+    <script src="jquery-3.2.1.slim.min.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .map-overlay {
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            position: fixed;
+            width: 17%;
+            top: 0;
+            left: 0;
+            padding: 10px;
+            opacity: 0.9;
+        }
+
+            .map-overlay .map-overlay-inner {
+                background-color: #fff;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+                border-radius: 3px;
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            .map-overlay table {
+                border: none;
+                width: 100%;
+            }
+
+            .map-overlay h2 {
+                line-height: 24px;
+                display: block;
+                margin: 0 0 10px;
+            }
+
+        #legend {
+            opacity: 1;
+            position: fixed;
+            z-index: 1;
+            bottom: 500px;
+            left: 10px;
+            width: 130px;
+            font-family: Helvetica, 'Open Sans', sans-serif;
+        }
+
+        #legend a {
+            font-size: 13px;
+            font-weight: bold;
+            display: block;
+            height: 3vw margin: 0;
+            padding: 3px;
+            text-decoration:none;
+            border-left: 10px solid #fff;
+            text-align: left;
+            background-color: #fff;
+        }
+
+        #legend a:hover {
+            background-color: #f8f8f8;
+        }
+
+        #legend a.active {
+            background-color: #fff;
+            border-left: 10px solid #595959;
+        }
+
+        #legend a.active:hover {
+            background: #f8f8f8;
+        }
+
+        #map {
+            position: fixed;
+            width: 85%;
+        }
+
+        
+
+        #features {
+            width: 15%;
+            margin-left: 85%;
+            font-family: sans-serif;
+            overflow-y: scroll;
+            background-color: #fafafa;
+        }
+
+        section {
+            padding: 25px 50px;
+            line-height: 25px;
+            border-bottom: 1px solid #ddd;
+            opacity: 0.25;
+            font-size: 13px;
+        }
+
+        section.active {
+            opacity: 1;
+        }
+
+        section:last-child {
+            border-bottom: none;
+            margin-bottom: 200px;
+        }
+
+        .tips_remark{
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+        }
+
+        #myChart {
+            width: 1470px;
+            height: 400px;
+            position: fixed;
+            bottom: 30px;
+            right: 280px;
+            z-index: 999;
+            background-color: #ffffff;
+            opacity:0.8;
+        }
+        .btn {
+            width: 120px;
+            height: 30px;
+            position: fixed;
+            bottom: 30px;
+            right: 280px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 5px;
+            z-index: 1000;
+            background-color: BurlyWood;
+            color: #fff;
+            cursor:pointer;
+        }
+        .btn_info{
+            width: 30px;
+            height: 30px;
+            border-radius:30px;
+            position: fixed;
+            top: 80px;
+            right: 330px;
+            text-align: center;
+            line-height: 30px;
+            z-index: 1000;
+            background-color: BurlyWood;
+            color: #fff;
+            cursor:pointer;
+        }
+
+        .infobox{
+            position: absolute;
+            text-align: left;
+            top: 10%;
+            left: 20%;
+            right: 20%;
+            color: white;
+        }
+        path {
+            stroke: #fff;
+        }
+
+
+            path:hover {
+                opacity: 0.9;
+            }
+
+        rect:hover {
+            fill: CornflowerBlue;
+        }
+
+        .axis {
+            font: 10px sans-serif;
+        }
+
+        .legend tr {
+            border-bottom: 1px solid grey;
+        }
+
+            .legend tr:first-child {
+                border-top: 1px solid grey;
+            }
+
+        .axis path, .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .x.axis path {
+            display: none;
+        }
+
+        .legend {
+            margin-bottom: 76px;
+            display: inline-block;
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }
+
+        .legend td {
+             padding: 4px 5px;
+            vertical-align: bottom;
+        }
+
+        .legendFreq, .legendPerc {
+            text-align: right;
+            width: 50px;
+        }
+        p1 {
+            color: darkgrey;
+            font-size: smaller;}
+
+    </style>
+</head>
+
+<body>
+
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css" type="text/css" />
+    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+
+
+    <!--Legend and Layer Control-->
+    <nav id='legend'></nav>
+
+
+    <div id='map'></div>
+    <div class='map-overlay'>
+        <div class='map-overlay-inner'>
+            <h2> Religious Diversity </h2>
+            <h3 id="title">Place of Worship in London, 2020</h3>
+            <h3>&nbsp;</h3>
+            <h3>Borough:</h3>
+            <h3 id="laname">Hover over a borough</h3>
+            <h3 id="line">&nbsp;</h3>
+            <p>© Yi Zhou 2020</p>
+        </div>
+    </div>
+
+
+<!--brief introduction of each religions-->
+    <div id="features">
+<section id="initial" class="active">
+<h3>London Borough Map, 2020</h3>  
+<img src="london.png" width="170" height="117" />
+<p1><i>
+    (Photographer:
+    <a href="https://dp.pconline.com.cn/dphoto/list_1741202.html"
+    >woxinfeiyang)</a></i></p1>
+<p>
+</section>
+<section id="chris" >
+<h3>Christianity</h3>
+<p>
+Southwark is the borough with the most Christian place of worship in London.</p>
+<p>
+Christianity is an Abrahamic monotheistic religion based on the life and teachings of Jesus of Nazareth. Its adherents, known as Christians, believe that Jesus is the Christ, whose coming as the messiah was prophesied in the Hebrew Bible, called the Old Testament in Christianity, and chronicled in the New Testament. It is the world's largest religion with about 2.4 billion followers.
+
+The four largest branches of Christianity are the Catholic Church (1.3 billion/50.1%), Protestantism (920 million/36.7%), the Eastern Orthodox Church (230 million) and Oriental Orthodoxy (62 million/Orthodoxy combined at 11.9%).
+</p>
+</section>
+<section id="budd">
+<h3>Buddhism</h3>
+<p>
+Westminster is the borough with the most Buddhist place of worship in London.</p>
+<p>
+<p>
+Buddhism is the world's fourth-largest religion with over 520 million followers, or over 7% of the global population, known as Buddhists.Buddhism encompasses a variety of traditions, beliefs and spiritual practices largely based on original teachings attributed to the Buddha and resulting interpreted philosophies. It originated in ancient India as a Sramana tradition sometime between the 6th and 4th centuries BCE, spreading through much of Asia. Two major extant branches of Buddhism are generally recognized by scholars: Theravada (Pali: "The School of the Elders") and Mahayana (Sanskrit: "The Great Vehicle").
+</p>
+</section>
+<section id="jew">
+<h3>Judaism</h3>
+<p>
+Barnet is the borough with the most Jewish place of worship in London.</p>
+<p>
+Judaism is an ethnic religion comprising the collective religious, cultural and legal tradition and civilization of the Jewish people.[3][4] Judaism is considered by religious Jews to be the expression of the covenant that God established with the Children of Israel. It encompasses a wide body of texts, practices, theological positions, and forms of organization. The Torah is part of the larger text known as the Tanakh or the Hebrew Bible, and supplemental oral tradition represented by later texts such as the Midrash and the Talmud. With between 14.5 and 17.4 million adherents worldwide, Judaism is the tenth largest religion in the world.
+</p>
+</section>
+<section id="mus">
+<h3>Islam</h3>
+<p>
+Tower Hamlets is the borough with the most Muslim place of worship in London.</p>
+<p>
+<p>
+Islam is an Abrahamic monotheistic religion teaching that there is only one God (Allah), and that Muhammad is a messenger of God. It is the world's second-largest religion with over 1.8 billion followers or 24.1% of the world's population, known as Muslims. Islam teaches that God is merciful, all-powerful, and unique, and has guided mankind through prophets, revealed scriptures and natural signs. The primary scriptures of Islam are the Quran, believed to be the verbatim word of God, and the teachings and normative examples (called the sunnah, composed of accounts called hadith) of Muhammad (c. 570 – 8 June 632 CE).
+</p>
+</section>
+<section id="hindu">
+<h3>Hinduism</h3>
+<p>
+Brent is the borough with the most Hindu place of worship in London.</p>
+<p>
+<p>
+Hinduism is an Indian religion and dharma, or way of life, widely practiced in the Indian subcontinent and parts of Southeast Asia. Hinduism has been called the oldest religion in the world, and some practitioners and scholars refer to it as Sanātana Dharma, "the eternal tradition", or the "eternal way", beyond human history. Scholars regard Hinduism as a fusion or synthesis of various Indian cultures, with diverse roots and no founder. This "Hindu synthesis" started to develop between 500 BCE and 300 CE, after the end of the Vedic period (1500 to 500 BCE), and flourished in the medieval period, with the decline of Buddhism in India.
+</p>
+</section>
+<section id="sikh">
+
+<h3>Sikhism</h3>
+<p>
+Ealing is also the borough with the most Sikh place of worship in London.</p>
+<p>
+<p>
+Sikhism is a religion that originated in the Punjab region of the Indian subcontinent around the end of the 15th century.
+
+Though it is one of the youngest of the major religions, it is the world's fifth largest organized religion, as well as the world's ninth-largest overall religion, with about 25 million Sikhs as of the early 21st century.
+
+Sikhism is based on the spiritual teachings of Guru Nanak, the first Guru (1469–1539), and the nine Sikh Gurus that succeeded him. The tenth Guru, Guru Gobind Singh, named the Sikh scripture Guru Granth Sahib as his successor, terminating the line of human Gurus and establishing the scripture as the eternal, religious spiritual guide for Sikhs. Guru Nanak taught that living an "active, creative, and practical life" of "truthfulness, fidelity, self-control and purity" is above the metaphysical truth, and that the ideal man is one who "establishes union with God, knows His Will, and carries out that Will."Guru Hargobind, the sixth Sikh Guru, established the miri (political/temporal) and piri (spiritual) realms to be mutually coexistent.
+</p>
+
+
+<i id="citation">
+Adapted from:
+<a href="https://en.wikipedia.org/wiki/Main_Page"
+>Wikipedia</a>
+</i>
+
+</section>
+</div> 
+
+<!--Chart Div-->
+    <div id="myChart">
+        <h3>Category Distribution of places of worship in London, 2020</h3>
+        <p> <em>For the explanation of the charts, please click on the icon on the top right corner. Adapt from:<a href="http://bl.ocks.org/NPashaP/96447623ef4d342ee09b"> Pasha's block on d3 </a></em></p>
+    </div>
+    <div id="btnClose" class="btn">Hide Charts</div>
+    <div id="btnInfo" class="btn_info">I</div>
+
+    <!--Tips Div-->
+    <div class="tips_remark" onclick="javascript:off()" style="display: none;">
+        <div class="infobox">
+        <h2>Religious Diversity in London</h2>
+        <h4>
+            <br>This page is about the religious diversity in London. Religious diversity reflects the inclusiveness and openness of an area. As the capital city of the UK, London is one of the world's most diverse cities of religious belief.
+            <br><br>
+
+            </h4><h4>
+                According to the dataset of 'Population by Religion' which provided by 'Borough Office for National Statistics (ONS)', we choose the six religions most believed by Londoners to display, they are Christianity, Buddhism, Judaism, Islam, Hinduism and Sikhism.
+                The points shown in the map are the places of worship in London. The locations data are obtained from OpenStreetMap by using Overpass Turbo.
+                <h4>
+                    Introduction of the page:
+                </h4><h4>
+                    - The legend of each religions is shown on the left side of the page. Users can select different religions to show in the map easily by clicking on it.
+                </h4><h4>
+                    - When the mouse moves on the map, the name of the borough will be shown on top left corner of the page.
+                </h4><h4>
+                    - When the mouse moves on a certain point on the map, the name of the place of worship will be in the popup element.
+                </h4><h4>
+                    - When users click on the button 'Show Charts', the interactive bar chart and pie chart will be shown. These charts are adapted from Pasha's block on D3.
+                    By default, the pie chart shows the proportion of the total places of worship in London; the bar chart shows the number of places of worship in 33 boroughs in London.
+                    Each column of the bar chart represents a borough in London, with a total of 33 boroughs. The labels on the x-axis are the first few letters of each borough's name.
+                    When the mouse moves to a certain color block of the pie chart, e.g. purple, the bar chart will be updated with the number of Christian places of worship in 33 boroughs in London. When the mouse moves to a certain column of the bar chart, e.g. the first column 'Sou', the pie chart will be updated to the proportion of places of worship of 6 religions in Southwark.
+                </h4><h4>
+                    - When users enter the location into the search bar, they can find out which places of worship are nearby by combining with the map.
+                </h4><h4>
+                    - When users slide the scroll bar on the right side of the page, the view of the map will fly to the 6 boroughs with the largest number of each religions.
+                </h4>
+
+                <br>
+            </h4>
+        </div>
+    </div>
+
+
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script>
+        
+
+        var flag = false;
+        document.getElementById("btnClose").addEventListener("click", function () {
+            document.getElementById("btnClose").innerHTML = flag == true ? "Hide Charts" : "Show Charts";
+            if (!flag) {
+                document.getElementById("myChart").style.display = "none";
+            } else {
+                document.getElementById("myChart").style.display = "block";
+            }
+            flag = !flag;
+        });
+
+        document.getElementById("btnInfo").addEventListener("click", function () {
+            $('.tips_remark').show();
+        });
+
+        function off(){
+            $('.tips_remark').hide();
+        }
+
+        mapboxgl.accessToken =
+            'pk.eyJ1IjoieWl6aG91MTEiLCJhIjoiY2s1b2g5YnduMDV4aDNrcWowZXg1Y29wbSJ9.aCOa2BSgqXxv5YSrqa5_3g'; // Put your Mapbox Public Access token here
+        // Load a new map in the 'map' HTML div
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/yizhou11/cka75qolj0o8s1iqkh5h0gljx', // stylesheet location
+            center: [-0.13, 51.487], // starting position [lng, lat]
+            zoom: 9.95 // starting zoom
+        });
+
+        var chapters = {
+            'initial': {
+                bearing: 0,
+                center: [-0.13, 51.487],
+                zoom: 9.95,
+                pitch: 0,
+                speed: 0.5
+            },
+            'chris': {
+                bearing: 0,
+                center: [-0.0809303, 51.4545228],
+                zoom: 12.5,
+                pitch: 50,
+                speed: 0.5
+            },
+            'budd': {
+                bearing: 0,
+                center: [-0.15658, 51.5045055],
+                zoom: 13.5,
+                pitch: 50,
+                speed: 0.5
+            },
+            'jew': {
+                bearing: 0,
+                center: [-0.2073052, 51.5932158],
+                zoom: 12.5,
+                speed: 0.5,
+                pitch: 50
+            },
+            'mus': {
+                bearing: 0,
+                center: [-0.0305628, 51.5050654],
+                zoom: 13.5,
+                speed: 0.5,
+                pitch: 50
+            },
+            'hindu': {
+                bearing: 0,
+                center: [-0.2660000, 51.5617468],
+                zoom: 12.5,
+                pitch: 50,
+                speed: 0.5
+            },
+            'sikh': {
+                bearing: 0,
+                center: [-0.3275631, 51.5155876],
+                zoom: 12.5,
+                speed: 0.5,
+                pitch: 50
+            },
+        };
+
+        // On every scroll event, check which element is on screen
+        window.onscroll = function () {
+            var chapterNames = Object.keys(chapters);
+            for (var i = 0; i < chapterNames.length; i++) {
+                var chapterName = chapterNames[i];
+                if (isElementOnScreen(chapterName)) {
+                    setActiveChapter(chapterName);
+                    break;
+                }
+            }
+        };
+
+        var activeChapterName = 'initial';
+        function setActiveChapter(chapterName) {
+            if (chapterName === activeChapterName) return;
+
+            map.flyTo(chapters[chapterName]);
+
+            document.getElementById(chapterName).setAttribute('class', 'active');
+            document.getElementById(activeChapterName).setAttribute('class', '');
+
+            activeChapterName = chapterName;
+        }
+        function isElementOnScreen(id) {
+            var element = document.getElementById(id);
+            var bounds = element.getBoundingClientRect();
+            return bounds.top < window.innerHeight && bounds.bottom > 0;
+        }
+
+        var categories = ['Christian', 'Buddhist', 'Hindu', 'Jewish', 'Muslim', 'Sikh'];
+        var colors = ['#e88dd7', '#6d7ee8', '#5cd704', '#f18a3b', '#fae038', '#9b6422']
+
+        map.on('load', function () {
+
+            // add tileset sources
+            map.addSource('resta_dots', {
+                "type": "vector",
+                "url": "mapbox://yizhou11.alp669hh"
+            });
+
+            // add dot layers by category
+            for (var i = 0; i < categories.length; i++) {
+                map.addLayer({
+                    'id': categories[i],
+                    'type': 'circle',
+                    'source': 'resta_dots',
+                    'source-layer': 'religions-6d961a', // name of tilesets
+                    'layout': { 'visibility': 'visible' },
+                    'paint': {
+                        'circle-color': colors[i],
+                        'circle-opacity': 1,
+                        'circle-radius': {
+                            'base': 2,
+                            'stops': [[12, 3], [14, 6]]
+                        },
+                    },
+                    'filter': ['==', 'religion', categories[i]]
+                });
+            };
+
+            map.addLayer({
+                'id': 'popupdot',
+                'type': 'circle',
+                'source': 'resta_dots',
+                'source-layer': 'religions-6d961a', // name of tilesets
+                'layout': { 'visibility': 'visible' },
+                'paint': {
+                    'circle-color': '#ffffff',
+                    'circle-opacity': 0,
+                    'circle-radius': {
+                        'base': 2,
+                        'stops': [[12, 3], [14, 6]]
+                    },
+                },
+
+            });
+
+            var popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false,
+            });
+
+            function showPopup(e) {
+                // Updates the cursor to a hand to indicate interactivity
+                map.getCanvas().style.cursor = 'pointer';
+
+                // Show the popup when the user scrolls over a point, which then shows the name and address of pub
+                popup.setLngLat(e.features[0].geometry.coordinates)
+                    .setHTML(checkEmpty('<h3><strong>' + e.features[0].properties.name + '</strong></h3><p><strong><em>' + e.features[0].properties.religion + '</strong></em></p>'))
+                    .addTo(map);
+            }
+
+            // Remove the popup when the user scrolls off the point
+            function hidePopup() {
+                map.getCanvas().style.cursor = '';
+                popup.remove();
+            }
+
+            function checkEmpty(info) {
+                return (info) ? info : "No data";
+            }
+
+            // The layers from Mapbox that contain the data shown in the popup
+            map.on('mouseenter', 'popupdot', showPopup);
+            map.on('mouseleave', 'popupdot', hidePopup);
+
+            map.addLayer({
+                id: 'boundary',
+                type: 'line',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://yizhou11.brqf6j6s' // Your Mapbox tileset Map ID
+                },
+                'source-layer': 'london_borough-3dthka', // name of tilesets
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'line-color': '#ffffff',
+                    'line-width': 2
+                },
+            });
+        });
+
+        map.on('load', function () {
+
+            // Add the circle layer to the map
+
+            map.addLayer({
+                id: 'LocalAuthorities',
+                type: 'fill',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://yizhou11.brqf6j6s' // Your Mapbox tileset Map ID
+                },
+                'source-layer': 'london_borough-3dthka', // name of tilesets
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'fill-color': '#fff',
+                    'fill-opacity': 0
+                }
+            });
+
+            map.addLayer({
+                id: 'lahighlight',
+                type: 'line',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://yizhou11.brqf6j6s' // Your Mapbox tileset Map ID
+                },
+                'source-layer': 'london_borough-3dthka', // name of tilesets
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'line-color': '#744a00',
+                    'line-width': 4
+                },
+                filter: ['==', 'NAME', 'empty']
+            });
+
+            map.on('mousemove', function (e) {
+                var la = map.queryRenderedFeatures(e.point, {
+                    layers: ['LocalAuthorities']
+                });
+
+                if (la.length == 1) {
+                    map.setFilter('lahighlight', ['==', 'NAME', la[0].properties.NAME]);
+                    document.getElementById('laname').innerHTML = la[0].properties.NAME;
+                } else {
+                    map.setFilter('lahighlight', ['==', 'NAME', 'null']);
+                    document.getElementById('laname').innerHTML = "Hover over a borough";
+                }
+            });
+
+        });
+
+        // add legend with on/off switch
+        for (var i = 0; i < categories.length; i++) {
+            var id = categories[i];
+
+            var link = document.createElement('a');
+            link.href = '#';
+            link.className = 'active';
+            link.textContent = id;
+            link.style = "color:" + colors[i];
+
+            link.onclick = function (e) {
+                var clickedLayer = this.textContent
+                var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+                e.preventDefault();
+                e.stopPropagation();
+                if (visibility === 'visible') {
+                    this.className = '';
+                    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                } else {
+                    this.className = 'active';
+                    map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+                }
+            }
+
+            var layers = document.getElementById('legend');
+            layers.appendChild(link);
+        };
+
+
+
+        d3.csv("data.csv", function (d) {
+            var datas = [];
+            for (var i = 0; i < d.length; i++) {
+                datas.push({
+                    NAME: d[i].NAME,
+                    freq: {
+                        Buddhist: Number(d[i].buddhist_num),
+                        Christian: Number(d[i].christian_num),
+                        Hindu: Number(d[i].hindu_num),
+                        Jewish: Number(d[i].jewish_num),
+                        Muslim: Number(d[i].muslim_num),
+                        Sikh: Number(d[i].sikh_num)
+                    }
+                });
+            }
+            dashboard("#myChart", datas);
+            console.log(datas);
+        });
+        
+        // the part below is adapted from Pasha's Block
+        // dashboard("#myChart");
+        function dashboard(id, fData) {
+            var hG, pC, leg, barColor = 'LightSkyBlue';
+            function segColor(c) {
+                return { Buddhist: "#6d7ee8", Christian: "#e88dd7", Hindu: "#5cd704", Jewish: "#f18a3b", Muslim: "#fae038", Sikh: "#9b6422" }[c];
+            }
+            // compute total for each state.
+            fData.forEach(function (d) { d.total = d.freq.Buddhist + d.freq.Christian + d.freq.Hindu + d.freq.Jewish + d.freq.Muslim + d.freq.Sikh; });
+
+            // calculate total frequency by segment for all state.
+            var tF = ['Buddhist', 'Christian', 'Hindu', "Jewish", "Muslim", "Sikh"].map(function (d) {
+                return { type: d, freq: d3.sum(fData.map(function (t) { return t.freq[d]; })) };
+            });
+
+            //calculate total frequency by state for all segment.
+            var sF = fData.map(function (d) { return [d.NAME, d.total]; });
+
+            var hG = histoGram(sF), // create the histogram.
+                pC = pieChart(tF), // create the pie-chart.
+                leg = legend(tF); // create the legend.
+
+            console.log(tF);
+            console.log(fData);
+            console.log(sF);
+
+
+
+            // function to handle histogram.
+            function histoGram(fD) {
+                var hG = {}, hGDim = { t: 60, r: 0, b: 30, l: 0 };
+                hGDim.w = 900 - hGDim.l - hGDim.r,
+                    hGDim.h = 300 - hGDim.t - hGDim.b;
+                //create svg for histogram.
+                var hGsvg = d3.select(id).append("svg")
+                    .attr("width", hGDim.w + hGDim.l + hGDim.r)
+                    .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
+                    .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
+                // create function for x-axis mapping.
+                var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
+                    .domain(fD.map(function (d) { return d[0]; }));
+                // Add x-axis to the histogram svg.
+                hGsvg.append("g").attr("class", "x axis")
+                   .attr("transform", "translate(0," + hGDim.h + ")")
+                   .call(d3.svg.axis().scale(x).orient("bottom"));
+
+                //hGsvg.append("g").attr("class", "x axis")
+                //    .attr("transform", "translate(0," + hGDim.h + ")")
+                //    .call(d3.svg.axis().scale(x).orient("bottom"));
+                // Create function for y-axis map.
+                var y = d3.scale.linear().range([hGDim.h, 0])
+                    .domain([0, d3.max(fD, function (d) { return d[1]; })]);
+                // Create bars for histogram to contain rectangles and freq labels.
+                var bars = hGsvg.selectAll(".bar").data(fD).enter()
+                    .append("g").attr("class", "bar");
+                //create the rectangles.
+                bars.append("rect")
+                    .attr("x", function (d) { return x(d[0]); })
+                    .attr("y", function (d) { return y(d[1]); })
+                    .attr("width", x.rangeBand())
+                    .attr("height", function (d) { return hGDim.h - y(d[1]); })
+                    .attr('fill', barColor)
+                    .on("mouseover", mouseover)// mouseover is defined below.
+                    .on("mouseout", mouseout);// mouseout is defined below.
+                //Create the frequency labels above the rectangles.
+                bars.append("text").text(function (d) { return d3.format(",")(d[1]) })
+                    .attr("x", function (d) { return x(d[0]) + x.rangeBand() / 2; })
+                    .attr("y", function (d) { return y(d[1]) - 5; })
+                    .attr("text-anchor", "middle");
+                function mouseover(d) { // utility function to be called on mouseover.
+                    // filter for selected state.
+                    console.log(d);
+                    var st = fData.filter(function (s) { return s.NAME == d[0]; })[0];
+                    console.log(st);
+                    nD = d3.keys(st.freq).map(function (s) {
+                        return { type: s, freq: st.freq[s] };
+                    });
+                    // call update functions of pie-chart and legend.
+                    pC.update(nD);
+                    leg.update(nD);
+                }
+                function mouseout(d) { // utility function to be called on mouseout.
+                    // reset the pie-chart and legend.
+                    pC.update(tF);
+                    leg.update(tF);
+                }
+                // create function to update the bars. This will be used by pie-chart.
+                hG.update = function (nD, color) {
+                    // update the domain of the y-axis map to reflect change.
+                    y.domain([0, d3.max(nD, function (d) { return d[1]; })]);
+                    // Attach the new data to the bars.
+                    var bars = hGsvg.selectAll(".bar").data(nD);
+                    // transition the height and color of rectangles.
+                    bars.select("rect").transition().duration(500)
+                        .attr("y", function (d) { return y(d[1]); })
+                        .attr("height", function (d) { return hGDim.h - y(d[1]); })
+                        .attr("fill", color);
+                    // transition the frequency labels location and change value.
+                    bars.select("text").transition().duration(500)
+                        .text(function (d) { return d3.format(",")(d[1]) })
+                        .attr("y", function (d) { return y(d[1]) - 5; });
+                }
+                return hG;
+            }
+            // function to handle pieChart.
+            function pieChart(pD) {
+                var pC = {}, pieDim = { w: 250, h: 250 };
+                pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
+                // create svg for pie chart.
+                var piesvg = d3.select(id).append("svg")
+                    .attr("width", pieDim.w).attr("height", pieDim.h).append("g")
+                    .attr("transform", "translate(" + pieDim.w / 2 + "," + pieDim.h / 2 + ")");
+                // create function to draw the arcs of the pie slices.
+                var arc = d3.svg.arc().outerRadius(pieDim.r - 10).innerRadius(0);
+                // create a function to compute the pie slice angles.
+                var pie = d3.layout.pie().sort(null).value(function (d) { return d.freq; });
+                // Draw the pie slices.
+                piesvg.selectAll("path").data(pie(pD)).enter()
+                    .append("path").attr("d", arc)
+                    .each(function (d) { this._current = d; })
+                    .style("fill", function (d) { return segColor(d.data.type); })
+                    .on("mouseover", mouseover).on("mouseout", mouseout);
+                // create function to update pie-chart. This will be used by histogram.
+                pC.update = function (nD) {
+                    piesvg.selectAll("path").data(pie(nD)).transition().duration(500)
+                        .attrTween("d", arcTween);
+                }
+                // Utility function to be called on mouseover a pie slice.
+                function mouseover(d) {
+                    // call the update function of histogram with new data.
+                    hG.update(fData.map(function (v) {
+                        return [v.NAME, v.freq[d.data.type]];
+                    }), segColor(d.data.type));
+                }
+                //Utility function to be called on mouseout a pie slice.
+                function mouseout(d) {
+                    // call the update function of histogram with all data.
+                    hG.update(fData.map(function (v) {
+                        return [v.NAME, v.total];
+                    }), barColor);
+                }
+                // Animating the pie-slice requires a custom function which specifies
+                // how the intermediate paths should be drawn.
+                function arcTween(a) {
+                    var i = d3.interpolate(this._current, a);
+                    this._current = i(0);
+                    return function (t) { return arc(i(t)); };
+                }
+                return pC;
+            }
+            // function to handle legend.
+            function legend(lD) {
+                var leg = {};
+                // create table for legend.
+                var legend = d3.select(id).append("table").attr('class', 'legend');
+                // create one row per segment.
+                var tr = legend.append("tbody").selectAll("tr").data(lD)
+                    .enter().append("tr");
+                // create the first column for each segment.
+                tr.append("td").append("svg").attr("width", '16')
+                    .attr("height", '16').append("rect")
+                    .attr("width", '16').attr("height", '16')
+                    .attr("fill", function (d) { return segColor(d.type); });
+                // create the second column for each segment.
+                tr.append("td").text(function (d) { return d.type; });
+                // create the third column for each segment.
+                tr.append("td").attr("class", 'legendFreq')
+                    .text(function (d) { return d3.format(",")(d.freq); });
+                // create the fourth column for each segment.
+                tr.append("td").attr("class", 'legendPerc')
+                    .text(function (d) { return getLegend(d, lD); });
+                // Utility function to be used to update the legend.
+                leg.update = function (nD) {
+                    // update the data attached to the row elements.
+                    var l = legend.select("tbody").selectAll("tr").data(nD);
+                    // update the frequencies.
+                    l.select(".legendFreq")
+                        .text(function (d) { return d3.format(",")(d.freq); });
+                    // update the percentage column.
+                    l.select(".legendPerc").text(function (d) { return getLegend(d, nD); });
+                }
+                function getLegend(d, aD) { // Utility function to compute percentage.
+                    return d3.format("%")(d.freq / d3.sum(aD.map(function (v) {
+                        return v.freq;
+                    })));
+                }
+                return leg;
+            }
+        }
+
+// Add the geocoder
+map.addControl(
+    new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+})
+);
+
+// Add the icon of London
+map.on('load', function() {
+    map.addSource('points', {
+        'type': 'geojson',
+        'data': {
+            'type': 'FeatureCollection',
+            'features': [
+                {
+                    // feature for Mapbox DC
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [
+                            -0.119348,
+                            51.501847
+                            ]
+                            },
+                            'properties': {
+                                'title': 'London',
+                                'icon': 'amusement-park'
+                                }
+                                },
+                                ]
+                                }
+                                });
+        map.addLayer({
+            'id': 'points',
+            'type': 'symbol',
+            'source': 'points',
+            'paint': {
+                "icon-color": "#5B5B5B",
+                'text-color':"#5B5B5B"
+            },
+            'layout': {
+                // get the icon name from the source's "icon" property
+                // concatenate the name to get an icon from the style's sprite sheet
+                'icon-image': ['concat', ['get', 'icon'], '-15'],
+                
+                // get the title name from the source's "title" property
+                'text-field': ['get', 'title'],
+                'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                'text-offset': [0, 0.6],
+                'text-anchor': 'top'
+                }
+                });
+                });
+    </script>
+</body>
+</html>
