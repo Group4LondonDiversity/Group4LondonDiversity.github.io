@@ -1,0 +1,85 @@
+﻿cntry_name,CITY_NAME,FIPS_CNTRY,region_orig,countryflow_2005,geometry_x,geometry_y
+India,New Delhi,IN,South Asia,250403,77.2167513,28.56872699
+Pakistan,Islamabad,PK,South Asia,167249,73.06054232,33.71815797
+United States,Washington D.C.,US,North America,140824,-76.95383369,38.89090807
+Zimbabwe,Harare,ZI,Africa,130647,31.0200034,-17.82999901
+Bangladesh,Dhaka,BG,South Asia,106214,90.40714232,23.70991494
+Nigeria,Abuja,NI,Africa,85193,7.2563853,9.057266953
+France,Paris,FR,Europe,57686,2.432997345,48.88199706
+Philippines,Manila,RP,South-East Asia,47678,120.9669484,14.61670206
+South Africa,Johannesburg,SF,Africa,45968,28.00431045,-26.17895708
+China,Beijing,CH,East Asia,42507,116.3880364,39.90618905
+Sri Lanka,Colombo,CE,South Asia,41777,79.84800039,6.927002926
+Somalia,Mogadishu,SO,Africa,32690,45.34414233,2.041173022
+Ghana,Accra,GH,Africa,25838,-0.200924638,5.558561954
+Malaysia,Kuala Lumpur,MY,South-East Asia,24266,101.7080014,3.14999992
+Australia,Sydney,AS,Oceania,22546,151.0281994,-33.88976995
+Iran,Tehran,IR,South Asia,21557,51.44799634,35.77400102
+Guyana,Georgetown,GY,Latin America,21378,-58.16999669,6.769997988
+Canada,Ottawa,CA,North America,21299,-75.65100268,45.37400396
+Trinidad & Tobago,Port of Spain,TD,Latin America,16000,-61.49006059,10.63973704
+Netherlands,Amsterdam,NL,Europe,15464,4.894839325,52.37304298
+Turkey,Ankara,TU,West Asia,14960,32.85299738,39.92900395
+Sudan,Khartoum,SU,Africa,14135,32.52999644,15.55000193
+New Zealand,Wellington,NZ,Oceania,13766,174.8072164,-41.33484005
+Afghanistan,Kabul,AF,South Asia,13444,69.13675829,34.53091193
+Poland,Warsaw,PL,Europe,13007,21.01187737,52.24494605
+Kenya,Nairobi,KE,Africa,12539,36.80399735,-1.269998945
+Myanmar,Rangoon,BM,South-East Asia,11820,96.12488738,16.87222795
+Guinea,Conakry,GV,Africa,10591,-13.67199862,9.549999016
+Brazil,Brasilia,BR,Latin America,8120,-47.89774766,-15.79211094
+Bulgaria,Sofia,BU,Europe,7193,23.3318704,42.70726806
+Ethiopia,Addis Ababa,ET,Africa,6728,38.70000039,9.029997066
+Jamaica,Kingston,JM,Latin America,6619,-76.79951968,17.96692503
+Germany,Berlin,GM,Europe,6385,13.32756936,52.51626892
+Israel,Jerusalem,IS,West Asia,6218,35.22521738,31.77374401
+South Korea,Seoul,KS,East Asia,6099,126.9352443,37.54235708
+Lithuania,Vilnius,LH,Fmr Soviet Union,5661,25.27596034,54.68856299
+Barbados,Bridgetown,BB,Latin America,5563,-59.61584662,13.09587298
+Sweden,Stockholm,SW,Europe,5273,17.99145043,59.33116799
+Albania,Tirana,AL,Europe,4402,19.83200436,41.33199592
+Lebanon,Beirut,LE,West Asia,4400,35.49999638,33.88332605
+Libya,Tripoli,LY,Africa,4031,13.15689332,32.89312793
+Argentina,Buenos Aires,AR,Latin America,3696,-58.4498337,-34.62249601
+Mozambique,Maputo,MZ,Africa,3681,32.57399739,-25.96200304
+Romania,Bucharest,RO,Europe,3491,26.12296843,44.43048001
+Morocco,Rabat,MO,Africa,3132,-6.832997687,34.01499594
+Cameroon,Yaounde,CM,Africa,3068,11.51399737,3.864996064
+Singapore,Singapore,SN,South-East Asia,3005,103.8317943,1.268855986
+Brunei,Bandar Seri Begawan,BX,South-East Asia,2642,114.9669994,4.932998971
+Greece,Athens,GR,Europe,2343,23.65299938,37.94399999
+Algeria,Algiers,AG,Africa,2152,3.050001347,36.78329694
+Portugal,Lisbon,PO,Europe,2049,-9.129995602,38.72999706
+Puerto Rico,San Juan,RQ,Latin America,1850,-66.06899956,18.39899707
+Mauritius,Port Louis,MP,Africa,1805,57.4959963,-20.16500406
+Saudi Arabia,Riyadh,SA,West Asia,1630,46.77000332,24.65000097
+Liberia,Monrovia,LI,Africa,1595,-10.79700269,6.300998929
+Belize,Belize,BH,Latin America,1502,-88.18199958,17.49600007
+Japan,Tokyo,JA,East Asia,1201,139.8090064,35.68300205
+Ireland,Dublin,EI,Europe,1039,-6.257348713,53.34155993
+Russia,Moscow,RS,Fmr Soviet Union,1004,37.70000134,55.74999603
+Tunisia,Tunis,TS,Africa,976,10.16600438,36.81900004
+Indonesia,Jakarta,ID,South-East Asia,950,106.8000034,-6.16666505
+Burkina Faso,Koudougou,UV,Africa,729,-2.364002586,12.24899993
+Zambia,Lusaka,ZA,Africa,679,28.1700003,-15.42999596
+Thailand,Bangkok,TH,South-East Asia,657,100.5166714,13.75000192
+Malawi,Lilongwe,MI,Africa,647,33.7740033,-13.98300304
+Chad,Ndjamena,CD,Africa,583,15.2408254,12.10413603
+Uzbekistan,Tashkent,UZ,Fmr Soviet Union,527,69.34986931,41.24793601
+Kuwait,Kuwait,KU,West Asia,460,47.9740414,29.38591807
+Italy,Rome,IT,Europe,452,12.51999934,41.87999704
+Norway,Oslo,NO,Europe,440,10.71199835,59.93800203
+Austria,Vienna,AU,Europe,429,16.32097844,48.20211903
+Belgium,Brussels,BE,Europe,390,4.367997439,50.83700397
+Bosnia & Herzegovina,Sarajevo,BK,Europe,389,18.43000231,43.86999596
+Mexico,Mexico City,MX,Latin America,361,-99.12757465,19.42704908
+Ukraine,Kyiv,UP,Fmr Soviet Union,353,30.50210739,50.44815907
+Uruguay,Montevideo,UY,Latin America,265,-56.16999859,-34.92000005
+Georgia,T'Bilisi,GG,Fmr Soviet Union,215,44.78312741,41.72181303
+Switzerland,Bern,SZ,Europe,207,7.445997304,46.94799599
+Latvia,Riga,LG,Fmr Soviet Union,186,24.04999832,56.88000003
+Peru,Lima,PE,Latin America,162,-77.0450036,-12.08199594
+Kyrgyzstan,Bishkek,KG,Fmr Soviet Union,158,74.77000242,42.87999593
+Moldova,Chisinau,MD,Fmr Soviet Union,139,28.82999729,46.99999807
+Mali,Bamako,ML,Africa,115,-7.986482667,12.65295597
+Oman,Muscat,MU,West Asia,106,58.58800245,23.60699999
