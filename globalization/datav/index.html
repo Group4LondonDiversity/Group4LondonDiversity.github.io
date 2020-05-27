@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Animate a point along a route</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
+    <link href="css/style.css" rel='stylesheet'/>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="js/chart.min.js"></script>
+    <style>
+      body{background-color:#242424;}
+    </style>
+</head>
+
+<body>
+
+  <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js' charset='utf-8'></script>
+
+  <div id='map'></div>
+
+  <div id="legend" class="legend">
+    <strong>Global Immigration to London</strong>
+    <small>Data Source: <a href="http://download.gsb.bund.de/BIB/global_flow/">THE GLOBAL FLOW OF PEOPLE</a></small>
+  </div>
+
+  <div class="switch-button" id="switch-button">
+    <a class="btn-mui active" href="#" data-country="ALL">ALL</a>
+    <a class="btn-mui" href="#" data-country="South Asia">South Asia</a>
+    <a class="btn-mui" href="#" data-country="North America">North America</a>
+    <a class="btn-mui" href="#" data-country="Africa">Africa</a>
+    <a class="btn-mui" href="#" data-country="Europe">Europe</a>
+    <a class="btn-mui" href="#" data-country="South-East Asia">South-East Asia</a>
+    <a class="btn-mui" href="#" data-country="East Asia">East Asia</a>
+    <a class="btn-mui" href="#" data-country="Oceania">Oceania</a>
+    <a class="btn-mui" href="#" data-country="Latin America">Latin America</a>
+    <a class="btn-mui" href="#" data-country="West Asia">West Asia</a>
+    <a class="btn-mui" href="#" data-country="Fmr Soviet Union">Fmr Soviet Union</a>
+  </div>
+
+  <!--Worldwide-->
+  <div class='info'>
+    <div id="worldPanel" class="sidepanel">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeWorld()">&times;</a>
+      <div class='content'>
+        <div id='dispayfisrt'></div>
+        <div class='barchart'><canvas id='world_chart' height=197px width=197px></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="play" class="Play">
+    <button id="replay">Replay</button>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

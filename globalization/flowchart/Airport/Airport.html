@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Line Chart</title>
+
+		<style type="text/css">
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 360px; 
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+	font-family: Verdana, sans-serif;
+	border-collapse: collapse;
+	border: 1px solid #EBEBEB;
+	margin: 10px auto;
+	text-align: center;
+	width: 100%;
+	max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+	font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+		</style>
+	</head>
+	<body>
+<script src="highcharts.js"></script>
+<script src="series-label.js"></script>
+<script src="exporting.js"></script>
+<script src="export-data.js"></script>
+<script src="accessibility.js"></script>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        This Radar Chart is the visualisation for the total number of global migration to UK(thousands) from 2005 to 2010. </p>
+        <p>When clicking on a region with a different color, Users can view the number of immigrants from all countries in the corresponding region to the UK (only countries with more than 100 immigrants are selected).</p>
+        <p>By adjusting the slider on the right, Users can narrow the scope to see the data more clearly, or expand the scope to all regions.</p>
+        <p>By adjusting the bottom slider, Users can adjust Radar chart to Bar chart. Similarly, the above two operations are also applicable to Bar chart. (Codes are from: <a href="https://www.amcharts.com/demos/radar-timeline/"
+            >amCharts</a>)</p>
+
+        <p>This line chart showing passengers of 6 London Airports from 2004 to 2014. When the mouse is moved to the line, Users can see the information of the corresponding airport (the number of passengers in this airport every year). 
+        This chart includes the<code>series-label</code> module, which adds a label to each line for
+        enhanced readability. (Codes are from: <a href="https://www.highcharts.com/demo/line-basic"
+        >Highcharts</a>)
+    </p>
+</figure>
+
+
+
+
+
+		<script type="text/javascript">
+Highcharts.chart('container', {
+
+    title: {
+        text: 'Passengers of London Airports, 2004 - 2014'
+    },
+
+    subtitle: {
+        text: 'Source: London Datastore'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Number of Passengers'
+        }
+    },
+
+    xAxis: {
+        accessibility: {
+            rangeDescription: 'Range: 2004 to 2014'
+        }
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2004
+        }
+    },
+
+    series: [{
+        name: 'HEATHROW',
+        data: [67109174, 67683317, 67339227, 67852387, 66906954, 65906641, 65745250, 69390591, 69983139, 72331690, 73371096]
+    }, {
+        name: 'GATWICK',
+        data: [31391546, 32693005, 34080345, 35165404, 34162014, 32360773, 31342263, 33643989, 34218668, 35428548, 38093930]
+    }, {
+        name: 'STANSTED',
+        data: [20907023, 21991733, 23680352, 23759250, 22340375, 19949689, 18561598, 18047403, 17464792, 17848871, 19958047]
+    }, {
+        name: 'LUTON',
+        data: [7520467, 9134748, 9414829, 9919361, 10173902, 9115327, 8733837, 9509915, 9614175, 9693487, 10481501]
+    }, {
+        name: 'LONDON CITY',
+        data: [1674807, 1996397, 2358159, 2912123, 3260225, 2796890, 2780582, 2992847, 3016664, 3379753, 3647824]
+    },{
+        name: 'SOUTHEND',
+        data: [3224, 5133, 30222, 49311, 44075, 3948, 3583, 42439, 616974, 969912, 1102260]
+    }
+],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+		</script>
+	</body>
+</html>
